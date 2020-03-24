@@ -2,7 +2,7 @@ FROM store/oracle/jdk:11 as builder
 
 ARG SPIGOT_REV
 
-WORKDIR /root
+WORKDIR /build_spigot
 
 RUN curl https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar --output BuildTools.jar
 
@@ -16,10 +16,21 @@ ARG JAVA_XMX
 ARG JAVA_XMS
 ARG SPIGOT_REV
 
+ENV JAVA_XMX=${JAVA_XMX}
+ENV JAVA_XMS=${JAVA_XMS}
+ENV SPIGOT_REV=${SPIGOT_REV}
+
+COPY --from=builder  /build_spigot/spigot-${SPIGOT_REV}.jar .
+
+RUN echo "#!/bin/bash" > start.sh && \
+    echo "cd /spigot_server" >> start.sh && \
+    echo "java -Xms${JAVA_XMS} -Xmx${JAVA_XMX} -jar /spigot-${SPIGOT_REV}.jar" >> start.sh && \
+    chmod +x start.sh
+
 WORKDIR /spigot_server
 
-RUN echo "/root/spigot-${SPIGOT_REV}.jar" 
+RUN echo eula=true > /spigot_server/eula.txt
 
-COPY --from=builder  /root/spigot-${SPIGOT_REV}.jar .
+EXPOSE 25565
 
-ENTRYPOINT ["java","-Xms${JAVA_XMS}", "-Xmx$JAVA_XMX${JAVA_XMX}", "-jar", "spigot-${SPIGOT_REV}.jar"]
+ENTRYPOINT ["/start.sh"]
