@@ -4,11 +4,11 @@ A docker image to run [Spigot](https://www.spigotmc.org/) with your own server f
 
 ## Run it with Docker
 
+create a directory (e.g `server-example`), put your `eula.txt`and `server.properties` files inside.
+
 ### Optional
 If you build the image you can choose the Spigot version by setting `SPIGOT_REV` in `Makefile`
 and Java `Xmx` and `Xms` flags value.
-
-create a directory (e.g `server-example`), put your `eula.txt`and `server.properties` files inside.
 
 ### then
 
