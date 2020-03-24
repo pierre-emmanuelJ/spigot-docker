@@ -1,6 +1,6 @@
-SPIGOT_REV := "1.14.4"
-JAVA_XMX := "512m"
-JAVA_XMS := "512m"
+SPIGOT_REV=1.14.4
+JAVA_XMX=512m
+JAVA_XMS=512m
 
 .PHONY: docker
 docker: Dockerfile
@@ -11,4 +11,7 @@ docker: Dockerfile
 		--build-arg JAVA_XMS="${JAVA_XMS}" \
 		.
 	docker tag pierro777/spigot:latest pierro777/spigot:${SPIGOT_REV}
+
+docker-push:
+	docker push pierro777/spigot:latest && docker push pierro777/spigot:${SPIGOT_REV}
 

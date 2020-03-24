@@ -1,7 +1,5 @@
-FROM store/oracle/jdk:11
+FROM store/oracle/jdk:11 as builder
 
-ARG JAVA_XMX
-ARG JAVA_XMS
 ARG SPIGOT_REV
 
 WORKDIR /root
@@ -14,8 +12,14 @@ RUN java -jar BuildTools.jar --rev ${SPIGOT_REV}
 
 FROM store/oracle/jdk:11
 
+ARG JAVA_XMX
+ARG JAVA_XMS
+ARG SPIGOT_REV
+
 WORKDIR /spigot_server
 
-COPY --from=0  /root/spigot-${SPIGOT_REV}.jar .
+RUN echo "/root/spigot-${SPIGOT_REV}.jar" 
+
+COPY --from=builder  /root/spigot-${SPIGOT_REV}.jar .
 
 ENTRYPOINT ["java","-Xms${JAVA_XMS}", "-Xmx$JAVA_XMX${JAVA_XMX}", "-jar", "spigot-${SPIGOT_REV}.jar"]
