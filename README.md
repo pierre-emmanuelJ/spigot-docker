@@ -1,6 +1,6 @@
 # spigot-docker
 
-A docker image to run [Spigot](https://www.spigotmc.org/) with your own server files very easily.
+A Minecraft Spigot Docker image to run [Spigot](https://www.spigotmc.org/) with your own server files very easily.
 
 ## Run it with Docker
 
