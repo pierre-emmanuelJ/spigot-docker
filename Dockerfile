@@ -18,7 +18,7 @@ COPY --from=builder  /build_spigot/spigot-${SPIGOT_REV}.jar .
 
 RUN echo "#!/bin/bash" > start.sh && \
     echo "cd /spigot_server" >> start.sh && \
-    echo "java \"-Xms$JAVA_XMS\" \"-Xmx$JAVA_XMX\" -jar /spigot-${SPIGOT_REV}.jar" >> start.sh && \
+    echo "java \"-Xms\$JAVA_XMS\" \"-Xmx\$JAVA_XMX\" -jar /spigot-${SPIGOT_REV}.jar" >> start.sh && \
     chmod +x start.sh
 
 WORKDIR /spigot_server
