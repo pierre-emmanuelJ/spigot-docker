@@ -12,19 +12,13 @@ RUN java -jar BuildTools.jar --rev ${SPIGOT_REV}
 
 FROM store/oracle/jdk:11
 
-ARG JAVA_XMX
-ARG JAVA_XMS
 ARG SPIGOT_REV
-
-ENV JAVA_XMX=${JAVA_XMX}
-ENV JAVA_XMS=${JAVA_XMS}
-ENV SPIGOT_REV=${SPIGOT_REV}
 
 COPY --from=builder  /build_spigot/spigot-${SPIGOT_REV}.jar .
 
 RUN echo "#!/bin/bash" > start.sh && \
     echo "cd /spigot_server" >> start.sh && \
-    echo "java -Xms${JAVA_XMS} -Xmx${JAVA_XMX} -jar /spigot-${SPIGOT_REV}.jar" >> start.sh && \
+    echo "java \"-Xms$JAVA_XMS\" \"-Xmx$JAVA_XMX\" -jar /spigot-${SPIGOT_REV}.jar" >> start.sh && \
     chmod +x start.sh
 
 WORKDIR /spigot_server

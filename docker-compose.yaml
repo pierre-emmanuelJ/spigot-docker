@@ -5,8 +5,6 @@ services:
       context: .
       args:
         - SPIGOT_REV=${SPIGOT_REV}
-        - JAVA_XMX=${JAVA_XMX}
-        - JAVA_XMS=${JAVA_XMS}
       dockerfile: Dockerfile
     volumes:
       - ./data:/spigot_server
@@ -15,6 +13,5 @@ services:
     ports:
       - 25565:25565
     environment:
-      SPIGOT_REV: ${SPIGOT_REV}
       JAVA_XMX: ${JAVA_XMX}
       JAVA_XMS: ${JAVA_XMS}
