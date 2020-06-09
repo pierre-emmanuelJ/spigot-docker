@@ -4,5 +4,5 @@ ALL_VERSIONS="1.13 1.13.1 1.13.2 1.14 1.14.1 1.14.2 1.14.3 1.14.4 1.15 1.15.1 1.
 
 
 for v in $ALL_VERSIONS; do
-    SPIGOT_REV="$v" make docker && make docker-push
+    SPIGOT_REV="$v" make docker && SPIGOT_REV="$v" make docker-push
 done
